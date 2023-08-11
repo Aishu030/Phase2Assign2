@@ -18,9 +18,6 @@ create table Book
 (BID int primary key,
 BName nvarchar(100) not null,
 BPrice float,
-Author int,
-Publisher int,
-Category int,
 AID int foreign key references Author,
 PID int foreign key references Publisher,
 CID int foreign key references Category)
@@ -39,7 +36,7 @@ insert into Author(AID,AuthorName) values (100,'Emily'),
 insert into Category(CID,Category) values (1,'Thriller'),
 (2,'Comedy'),(3,'Horror')
 
-insert into Book (BID,BName,BPrice,Author,Publisher,Category) 
+insert into Book (BID,BName,BPrice,AID,PID,CID) 
 values(22,'Book1',500, 100,11,1),
 (23,'Book2',1000, 101,12,2),
 (24,'Book3',1500,102,13,3),
@@ -47,10 +44,10 @@ values(22,'Book1',500, 100,11,1),
 (26,'Book5',2500,100,13,2),
 (27,'Book6',3000,102,11,3)
 
-select b.BID,b.BName,b.BPrice,a.AuthorName as Author,p.Publisher,
-c.Category from Book b join Author a on b.Author = a.AID
-join Publisher p on b.Publisher = p.PID
-join Category c on b.Category = c.CID
+select BID,BName,BPrice,AuthorName Author,Publisher,
+Category from Book b join Author a on b.AID = a.AID
+join Publisher p on b.PID = p.PID
+join Category c on b.CID = c.CID
 
 
 
